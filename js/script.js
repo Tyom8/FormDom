@@ -198,55 +198,77 @@ regionSelect.addEventListener("change", function (i) {
 
 let anun;
 citySelect.addEventListener("change", function () {
-    let select = this.value;
-    let qaxaqfil = city.filter(fn => fn.id == select)
+    let select2 = this.value;
+    let qaxaqfil = city.filter(fn => fn.id == select2)
     anun = qaxaqfil[0].names;
 })
 
 
 let input1 = document.getElementById("inp1");
 let input2 = document.getElementById("inp2");
+
+
+
+
+
 const but = document.getElementById("sub");
 const secondDiv = document.getElementById("tablediv");
 
 let j = 0;
 but.addEventListener("click", function (event) {
-    j++
-    event.preventDefault();
-    document.body.style.background = "yellow";
-    let x = input1.value;
-    let y = input2.value;
-    let newDiv = document.createElement("div");
-    let smallDiv1 = document.createElement("div");
-    let smallDiv2 = document.createElement("div");
-    let smallDiv3 = document.createElement("div");
-    let smallDiv4 = document.createElement("div");
-    let deleteButton = document.createElement("button");
-    deleteButton.classList.add("deletediv");
-    deleteButton.append("X")
-    smallDiv1.classList.add("numdiv");
-    smallDiv2.classList.add("smalldiv");
-    smallDiv3.classList.add("smalldiv");
-    smallDiv4.classList.add("smalldiv");
-    smallDiv1.append(`${j}.`);
-    smallDiv2.append(x);
-    smallDiv3.append(y);
-    smallDiv4.append(anun)
-    newDiv.append(smallDiv1,smallDiv2,smallDiv3,smallDiv4,deleteButton);
-    newDiv.classList.add("newClass");
-    secondDiv.append(newDiv);
-    input1.value = "";
-    input2.value = "";
-    citySelect.innerHTML = "";
-    citySelect.options.add(deffOption2);
-    regionSelect.innerHTML = "";
-    regionSelect.options.add(deffOption1);
-    for (let index = 0; index < countries.length; index++) {
-        regionSelect.options.add(new Option(countries[index].name, countries[index].id));
-    };
-    deleteButton.addEventListener("click", function (event) {
         event.preventDefault();
-        newDiv.remove();
-    })
+        if(!input1.value) {
+            alert("Mutqagreq dzer anuny")
+        }else if(input1.value.length < 4) {
+            alert("Mutqagreq amenaqichy 4 tar anun dashtum")
+        };
+        if(!input2.value) {
+            alert("Mutqagreq dzer azganuny")
+        }else if(input2.value.length < 4) {
+            alert("Mutqagreq amenaqichy 4 tar azganvan dashtum")
+        };
+        if(anun === undefined) {
+            alert("Nsheq dzer qaxaqy")
+        } else if(anun === "") {
+            alert("Nsheq dzer qaxaqy")
+        }
+       if(input1.value && input2.value && input1.value.length > 3 && input2.value.length > 3 && anun !== undefined && anun !== "") {
+        j++
+        document.body.style.background = "yellow";
+        let x = input1.value;
+        let y = input2.value;
+        let newDiv = document.createElement("div");
+        let smallDiv1 = document.createElement("div");
+        let smallDiv2 = document.createElement("div");
+        let smallDiv3 = document.createElement("div");
+        let smallDiv4 = document.createElement("div");
+        let deleteButton = document.createElement("button");
+        deleteButton.classList.add("deletediv");
+        deleteButton.append("X")
+        smallDiv1.classList.add("numdiv");
+        smallDiv2.classList.add("smalldiv");
+        smallDiv3.classList.add("smalldiv");
+        smallDiv4.classList.add("smalldiv");
+        smallDiv1.append(`${j}.`);
+        smallDiv2.append(x);
+        smallDiv3.append(y);
+        smallDiv4.append(anun);
+        anun = "";
+        newDiv.append(smallDiv1,smallDiv2,smallDiv3,smallDiv4,deleteButton);
+        newDiv.classList.add("newClass");
+        secondDiv.append(newDiv);
+        input1.value = "";
+        input2.value = "";
+        citySelect.innerHTML = "";
+        citySelect.options.add(deffOption2);
+        regionSelect.innerHTML = "";
+        regionSelect.options.add(deffOption1);
+        for (let index = 0; index < countries.length; index++) {
+            regionSelect.options.add(new Option(countries[index].name, countries[index].id));
+        };
+        deleteButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            newDiv.remove();
+        })
+       }
 });
-
