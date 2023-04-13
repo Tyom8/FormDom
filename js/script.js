@@ -186,10 +186,10 @@ for (let index = 0; index < countries.length; index++) {
 let deffOption1 = document.getElementById("city1");
 let deffOption2 = document.getElementById("city2");
 const citySelect = document.forms.firstform.secondselect;
-let index;
+let regionValue;
 regionSelect.addEventListener("change", function (i) {
-    index = this.value;
-    let citynames = city.filter(fn => Math.floor(fn.id) == index);
+    regionValue = this.value;
+    let citynames = city.filter(fn => Math.floor(fn.id) == regionValue);
     citySelect.innerHTML = "";
     citySelect.options.add(deffOption2);
     for (let i = 0; i < citynames.length; i++) {
@@ -197,11 +197,11 @@ regionSelect.addEventListener("change", function (i) {
     }
 });
 
-let qaxaqName;
+let cityValue;
 citySelect.addEventListener("change", function () {
     let select2 = this.value;
     let qaxaqfil = city.filter(fn => fn.id == select2);
-    qaxaqName = qaxaqfil[0].names;
+    cityValue = qaxaqfil[0].names;
 });
 
 let input1 = document.getElementById("inp1");
@@ -246,19 +246,22 @@ but.addEventListener("click", function (event) {
             helpsDiv.style.display = "flex"
             helpsDiv.append(help4)
         };
-        if(index === undefined) {
+        if(regionValue === undefined) {
+            helpsDiv.style.display = "flex"
+            helpsDiv.append(helpRegion)
+        } else if(regionValue === "") {
             helpsDiv.style.display = "flex"
             helpsDiv.append(helpRegion)
         };
-        if(qaxaqName === undefined) {
+        if(cityValue === undefined) {
             helpsDiv.style.display = "flex"
             helpsDiv.append(helpCity)
         } 
-        else if(qaxaqName === "") {
+        else if(cityValue === "") {
             helpsDiv.style.display = "flex"
             helpsDiv.append(helpCity)
-        }
-       if(input1.value && input2.value && input1.value.length > 3 && input2.value.length > 5 && qaxaqName !== undefined && qaxaqName !== "") {
+        };
+       if(input1.value && input2.value && input1.value.length > 3 && input2.value.length > 5 && cityValue !== undefined && cityValue !== "") {
         helpsDiv.style.display = "none"
         j++
         let x = input1.value;
@@ -278,8 +281,9 @@ but.addEventListener("click", function (event) {
         smallDiv1.append(`${j}.`);
         smallDiv2.append(x);
         smallDiv3.append(y);
-        smallDiv4.append(qaxaqName);
-        qaxaqName = "";
+        smallDiv4.append(cityValue);
+        cityValue = "";
+        regionValue = "";
         newDiv.append(smallDiv1,smallDiv2,smallDiv3,smallDiv4,deleteButton);
         newDiv.classList.add("newClass");
         secondDiv.append(newDiv);
