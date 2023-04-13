@@ -259,6 +259,7 @@ but.addEventListener("click", function (event) {
             helpsDiv.append(helpCity)
         }
        if(input1.value && input2.value && input1.value.length > 3 && input2.value.length > 5 && qaxaqName !== undefined && qaxaqName !== "") {
+        helpsDiv.style.display = "none"
         j++
         let x = input1.value;
         let y = input2.value;
