@@ -177,17 +177,18 @@ const city = [
         id: 10.2,
         names: "Ջերմուկ"
     }
-]
+];
 
 const regionSelect = document.forms.firstform.firstselect;
 for (let index = 0; index < countries.length; index++) {
     regionSelect.options.add(new Option(countries[index].name, countries[index].id));
 };
 let deffOption1 = document.getElementById("city1");
-const citySelect = document.forms.firstform.secondselect;
 let deffOption2 = document.getElementById("city2");
+const citySelect = document.forms.firstform.secondselect;
+let index;
 regionSelect.addEventListener("change", function (i) {
-    let index = i.currentTarget.value;
+    index = this.value;
     let citynames = city.filter(fn => Math.floor(fn.id) == index);
     citySelect.innerHTML = "";
     citySelect.options.add(deffOption2);
@@ -196,45 +197,69 @@ regionSelect.addEventListener("change", function (i) {
     }
 });
 
-let anun;
+let qaxaqName;
 citySelect.addEventListener("change", function () {
     let select2 = this.value;
-    let qaxaqfil = city.filter(fn => fn.id == select2)
-    anun = qaxaqfil[0].names;
-})
-
+    let qaxaqfil = city.filter(fn => fn.id == select2);
+    qaxaqName = qaxaqfil[0].names;
+});
 
 let input1 = document.getElementById("inp1");
 let input2 = document.getElementById("inp2");
-
-
-
-
-
 const but = document.getElementById("sub");
 const secondDiv = document.getElementById("tablediv");
-
+let helpsDiv = document.getElementById("helpsdiv");
+let help1 = document.createElement("div");
+help1.classList.add("help1")
+help1.append("Մուտքագրեք ձեր անունը!");
+let help2 = document.createElement("div");
+help2.classList.add("help1")
+help2.append("Անունը պետք է լինի ամենաքիչը 4 տառ!");
+let help3 = document.createElement("div");
+help3.classList.add("help2")
+help3.append("Մուտքագրեք ձեր ազգանունը!");
+let help4 = document.createElement("div");
+help4.classList.add("help2")
+help4.append("Ազգնունը պետք է լինի ամենաքիչը 6 տառ!");
+let helpRegion = document.createElement("div");
+helpRegion.classList.add("help3")
+helpRegion.append("Նշեք ձեր մարզը!");
+let helpCity = document.createElement("div");
+helpCity.classList.add("help4")
+helpCity.append("Նշեք ձեր քաղաքը!");
 let j = 0;
 but.addEventListener("click", function (event) {
         event.preventDefault();
+        helpsDiv.innerHTML = ""
         if(!input1.value) {
-            alert("Mutqagreq dzer anuny")
-        }else if(input1.value.length < 4) {
-            alert("Mutqagreq amenaqichy 4 tar anun dashtum")
+            helpsDiv.style.display = "flex"
+            helpsDiv.append(help1);
+        }
+        else if(input1.value.length < 4) {
+            helpsDiv.style.display = "flex"
+            helpsDiv.append(help2);
         };
         if(!input2.value) {
-            alert("Mutqagreq dzer azganuny")
-        }else if(input2.value.length < 4) {
-            alert("Mutqagreq amenaqichy 4 tar azganvan dashtum")
+            helpsDiv.style.display = "flex"
+            helpsDiv.append(help3)
+        }else if(input2.value.length < 6) {
+            helpsDiv.style.display = "flex"
+            helpsDiv.append(help4)
         };
-        if(anun === undefined) {
-            alert("Nsheq dzer qaxaqy")
-        } else if(anun === "") {
-            alert("Nsheq dzer qaxaqy")
+        if(index === undefined) {
+            helpsDiv.style.display = "flex"
+            helpsDiv.append(helpRegion)
+        };
+        if(qaxaqName === undefined) {
+            helpsDiv.style.display = "flex"
+            helpsDiv.append(helpCity)
+        } 
+        else if(qaxaqName === "") {
+            helpsDiv.style.display = "flex"
+            helpsDiv.append(helpCity)
         }
-       if(input1.value && input2.value && input1.value.length > 3 && input2.value.length > 3 && anun !== undefined && anun !== "") {
+       if(input1.value && input2.value && input1.value.length > 3 && input2.value.length > 5 && qaxaqName !== undefined && qaxaqName !== "") {
         j++
-        document.body.style.background = "yellow";
         let x = input1.value;
         let y = input2.value;
         let newDiv = document.createElement("div");
@@ -252,8 +277,8 @@ but.addEventListener("click", function (event) {
         smallDiv1.append(`${j}.`);
         smallDiv2.append(x);
         smallDiv3.append(y);
-        smallDiv4.append(anun);
-        anun = "";
+        smallDiv4.append(qaxaqName);
+        qaxaqName = "";
         newDiv.append(smallDiv1,smallDiv2,smallDiv3,smallDiv4,deleteButton);
         newDiv.classList.add("newClass");
         secondDiv.append(newDiv);
